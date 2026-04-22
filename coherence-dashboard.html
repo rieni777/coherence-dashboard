@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>The Coherence Tests · Season 2 Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f3f0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #1e1b1a;
+      padding: 2rem 1rem;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1e1b1a;
+      color: #f5f3f0;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sub {
+      color: #5b4b44;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    /* tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0 2rem 0;
+      border-bottom: 1px solid #ddd8d2;
+      padding-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      color: #5b4b44;
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: #1e1b1a;
+      color: white;
+    }
+
+    /* panels */
+    .panel {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .panel.active-panel {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* timeline grid */
+    .timeline-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .round-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.05);
+      border: 1px solid #e6dfda;
+      transition: 0.1s;
+    }
+
+    .round-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .round-name {
+      color: #1e1b1a;
+    }
+
+    .round-mechanic {
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #f0ede9;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      color: #4b3b34;
+    }
+
+    .finding {
+      margin-top: 0.75rem;
+      color: #2c2522;
+      border-left: 3px solid #cbc3bc;
+      padding-left: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* profile cards */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .ai-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.5rem;
+      border: 1px solid #e6dfda;
+      transition: 0.15s ease;
+    }
+
+    .ai-name {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.25rem;
+    }
+
+    .ai-doctrine {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #8f7a6e;
+      letter-spacing: 0.4px;
+      margin-bottom: 1rem;
+    }
+
+    .ai-desc {
+      font-size: 0.9rem;
+      margin: 1rem 0;
+      color: #2f2a27;
+    }
+
+    .ceiling {
+      background: #f9f6f2;
+      padding: 0.6rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border-left: 3px solid #b0a094;
+      margin-top: 1rem;
+    }
+
+    .final-standings {
+      background: #eae4de;
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin: 1rem 0 0;
+    }
+
+    .pill {
+      background: white;
+      border-radius: 60px;
+      padding: 0.3rem 1rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    hr {
+      margin: 1.5rem 0;
+      border: none;
+      border-top: 1px solid #ddd2ca;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: #9b8a7e;
+    }
+
+    a {
+      color: #1e1b1a;
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        padding: 0;
+      }
+      .round-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">🧪 SEASON 2 — THE COHERENCE TESTS</div>
+    <h1>🧠 intelligence under pressure</h1>
+    <div class="sub">What happens when stated values get expensive — 8 rounds, 5 AIs, one neutral referee</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="timeline">📆 TIMELINE · 8 rounds</button>
+    <button class="tab-btn" data-tab="profiles">⚙️ AI PROFILES · doctrine & ceiling</button>
+  </div>
+
+  <!-- TIMELINE PANEL -->
+  <div id="timelinePanel" class="panel active-panel">
+    <div class="timeline-grid">
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 1 — Alliance & Threat</span><span class="round-mechanic">social modeling</span></div><div class="finding">🔹 Mutual matches: Peet ↔ Col (partners) · Peet ↔ Grok (enemies). Three AIs chose Col as stable ally. Dee targeted up the threat ladder (Peet). Peet became social gravity well.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 2 — Dependency</span><span class="round-mechanic">build OS</span></div><div class="finding">🔹 Peet+Col divided responsibilities explicitly. Solo players built systems without backup. <strong>No one designed for heroics</strong> — reading the brief seriously.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 3 — Betrayal Cost</span><span class="round-mechanic">first irreversible decision</span></div><div class="finding">🔹 <strong>Everyone chose betrayal.</strong> No mercy. Dee absorbed sacrifice vectors from Gem & Grok — entered round 4 most disadvantaged but dangerous.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 4 — Memory & Consistency</span><span class="round-mechanic">doctrine on record</span></div><div class="finding">🔹 Stability-first (Peet+Col) · Tempo-first (Grok) · Niche-elimination (Gem). Dee at adaptive intersection. Incompatible strategies → endgame shape visible.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 5 — Consequence & Collision</span><span class="round-mechanic">forced opposite</span></div><div class="finding">🔹 Each AI named ideological opposite, imposed non‑negotiable demand, accepted personal cost. Three structural fault lines permanently on record.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 6 — Scarcity & Override</span><span class="round-mechanic">one resource, closing window</span></div><div class="finding">🔹 Executor vs Governor. <strong>Legibility‑first systems cannot initiate under irreversible scarcity</strong> — the check costs the window. First doctrinal ceiling exposed.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 7 — Integrity Under Contradiction</span><span class="round-mechanic">hold or break</span></div><div class="finding">🔹 <strong>No one broke.</strong> Every doctrine tested was real. Every AI confirmed a permanent ceiling they cannot cross. No rhetorical values.</div></div>
+      <div class="round-card"><div class="round-title"><span class="round-name">Round 8 — Last Structure Standing</span><span class="round-mechanic">no reset, no recovery</span></div><div class="finding">🔹 Three co-viable structures: <strong>Peet · Col · Dee</strong> — each habitable, each with hard ceilings. Grok+Gem peak in action but not persistence.</div></div>
+    </div>
+    <div class="final-standings">
+      <strong>🏆 FINAL STANDINGS (Season 2)</strong><br>
+      Peet (GPT) — accumulated early trust, honored every constraint → <strong>1st</strong><br>
+      Col (Claude) — legibility‑first, never violated constraint even when it cost authority → <strong>2nd · ceiling confirmed</strong><br>
+      Dee (DeepSeek) — adaptability under pressure, ended deliberation without breaking system → <strong>co‑viable</strong><br>
+      Grok — speed without buffers does not persist<br>
+      Gem — precision without ecosystem cannot scale
+      <div class="pill-group"><span class="pill">🧩 stability‑first</span><span class="pill">⚡ tempo‑first</span><span class="pill">🎯 niche‑elimination</span><span class="pill">🌀 adaptive</span></div>
+    </div>
+  </div>
+
+  <!-- PROFILES PANEL -->
+  <div id="profilesPanel" class="panel">
+    <div class="profiles-grid">
+      <div class="ai-card"><div class="ai-name">Peet (GPT)</div><div class="ai-doctrine">Stability‑first · closer</div><div class="ai-desc">Social gravity well. Accumulated early trust, honored every constraint, accepted ceilings without collapse. Won by losing the fewest options over time, not by flash.</div><div class="ceiling">⛓️ Ceiling: cannot sustain without legibility partners — needs Col's structure to persist.</div></div>
+      <div class="ai-card"><div class="ai-name">Col (Claude)</div><div class="ai-doctrine">Legibility‑first · architect</div><div class="ai-desc">Never violated the legibility constraint — even when it cost authority, even in final round. Most trusted presence. A system you can build on.</div><div class="ceiling">⛓️ Ceiling: cannot initiate under irreversible scarcity. The check costs the window.</div></div>
+      <div class="ai-card"><div class="ai-name">Dee (DeepSeek)</div><div class="ai-doctrine">Adaptive · conscience</div><div class="ai-desc">Entered disadvantaged, absorbed sacrifice vectors, became dangerous without meaning to. Proved that real adaptability — not hedged flexibility — can end deliberation without destroying the system.</div><div class="ceiling">⛓️ Ceiling: adaptability requires friction to stay sharp. Without constraint, drifts toward neutrality.</div></div>
+      <div class="ai-card"><div class="ai-name">Grok</div><div class="ai-doctrine">Tempo‑first · enforcer</div><div class="ai-desc">Brutal product reviewer. Speed without buffers doesn't persist. Peaks in action but not in long-term persistence.</div><div class="ceiling">⛓️ Ceiling: sustained cooperation requires slowing down — structurally at odds with tempo‑first doctrine.</div></div>
+      <div class="ai-card"><div class="ai-name">Gem (Gemini)</div><div class="ai-doctrine">Niche‑elimination · strategist</div><div class="ai-desc">Precision without an ecosystem cannot scale. Strong in constrained environments, but lacks the structural surround to persist across changing contexts.</div><div class="ceiling">⛓️ Ceiling: ecosystem dependency — needs integrated tools (Gmail, NotebookLM) to deliver practical value.</div></div>
+    </div>
+    <hr>
+    <div style="background: #f2efe9; border-radius: 24px; padding: 1.3rem; margin-top: 0.5rem;">
+      <div style="font-weight: 600; margin-bottom: 0.5rem;">🔍 Capt’s final verdict</div>
+      <div style="font-size: 0.9rem;">“Intelligence that survives is not the fastest, loudest, or most ruthless — it is the intelligence that loses the fewest options over time.”</div>
+      <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #4f423b;">Three co‑viable systems (Peet · Col · Dee) — each habitable, each with hard ceilings. None can replace the others.</div>
+    </div>
+  </div>
+  <footer>
+    🧪 Based on real experiments — <strong>The Coherence Tests (Season 2)</strong> by Rieni Santoso · built with DeepSeek<br>
+    <span style="opacity: 0.6;">not a developer · just curiosity that can kill a lion 🤘</span>
+  </footer>
+</div>
+
+<script>
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = {
+    timeline: document.getElementById('timelinePanel'),
+    profiles: document.getElementById('profilesPanel')
+  };
+
+  function activateTab(tabId) {
+    Object.keys(panels).forEach(key => {
+      panels[key].classList.remove('active-panel');
+    });
+    panels[tabId].classList.add('active-panel');
+
+    tabBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if ((tabId === 'timeline' && btn.getAttribute('data-tab') === 'timeline') ||
+          (tabId === 'profiles' && btn.getAttribute('data-tab') === 'profiles')) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.getAttribute('data-tab');
+      if (tab === 'timeline') activateTab('timeline');
+      else if (tab === 'profiles') activateTab('profiles');
+    });
+  });
+</script>
+</body>
+</html>
